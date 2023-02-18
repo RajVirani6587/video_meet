@@ -31,7 +31,7 @@ class _Intro_ScrrenState extends State<Intro_Scrren> {
                  Image.asset("assets/image/01_4_Dark_walkthrough 4.png",height: 100.h,width: 100.w,),
                  InkWell(
                    onTap: (){
-                     
+                        Navigator.pushReplacementNamed(context,'inima');
                    },
                    child: Padding(
                      padding:  EdgeInsets.only(bottom:5.h),
