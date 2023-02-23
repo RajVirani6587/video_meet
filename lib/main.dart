@@ -3,6 +3,9 @@ import 'package:provider/provider.dart';
 import 'package:sizer/sizer.dart';
 import 'package:video_meet/provider/provider_class.dart';
 import 'package:video_meet/view/Choose_Your_Interest_screen.dart';
+import 'package:video_meet/view/bottom_barscreen.dart';
+import 'package:video_meet/view/demo_screen.dart';
+import 'package:video_meet/view/notification.dart';
 import 'package:video_meet/view/fast_timescreen.dart';
 import 'package:video_meet/view/introimage_screen.dart';
 import 'package:video_meet/view/splash_screen/intro_screen.dart';
@@ -18,7 +21,9 @@ void main(){
        child: Sizer(
          builder: (context, orientation, deviceType){
            return  MaterialApp(
+
              debugShowCheckedModeBanner: false,
+             initialRoute: 'd',
              routes: {
                '/':(context)=>Splash_Screen(),
                'first':(contest)=>First_TimeScrren(),
@@ -26,6 +31,10 @@ void main(){
                'inima':(context)=>Introimage_screen(),
                'interest':(context)=>Choose_Your_Interest_Screen(),
                'yourself':(contest)=>Yourself_Screen(),
+               'notification':(context)=>Notification_screen(),
+               'bottom':(context)=>Bottom_Screen(),
+
+               'd':(context)=>MyHomePage(),
              },
            );
          },

@@ -16,15 +16,15 @@ class _Intro_ScrrenState extends State<Intro_Scrren> {
          scrollDirection: Axis.horizontal,
          children: [
            Container(
-             color: Colors.red,
+             color: Colors.black,
              child: Image.asset("assets/image/01_2_Dark_walkthrough 2.png",height: 100.h,width: 100.w,),
            ),
            Container(
-             color: Colors.deepPurple,
+             color: Colors.black,
              child: Image.asset("assets/image/01_3_Dark_walkthrough 3.png",height: 100.h,width: 100.w,),
            ),
            Container(
-             color: Colors.red,
+             color: Colors.black,
              child: Stack(
                alignment: Alignment.bottomCenter,
                children: [
