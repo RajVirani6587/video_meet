@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:sizer/sizer.dart';
+import 'package:video_meet/view/Video/newVideo_screen.dart';
 import 'package:video_meet/view/Video/video_screen.dart';
 
 class Tabarvideo_Screen extends StatefulWidget {
@@ -31,11 +32,10 @@ class _Tabarvideo_ScreenState extends State<Tabarvideo_Screen> {
           body: TabBarView(
             children: [
               Video_Screen(),
-              Video_Screen(),
+              Newvideo_Screen(),
             ],
           ),
-        )
-
+        ),
     );
   }
 }

@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:rolling_bottom_bar/rolling_bottom_bar.dart';
 import 'package:rolling_bottom_bar/rolling_bottom_bar_item.dart';
 import 'package:video_meet/view/Video/tabbar_video.dart';
+import 'package:video_meet/view/best_videoscreen/Best_Video_Screen.dart';
+import 'package:video_meet/view/location_screen/location_screen.dart';
 import 'package:video_meet/view/splash_screen/intro_screen.dart';
 import 'package:video_meet/view/splash_screen/splash_screen.dart';
 
@@ -30,8 +32,8 @@ class _Bottom_ScreenState extends State<Bottom_Screen> {
         controller: _controller,
         children:[
           Tabarvideo_Screen(),
-          Splash_Screen(),
-          Intro_Scrren(),
+          BestVideo_Screen(),
+          Location_Screen(),
           Intro_Scrren(),
         ],
       ),

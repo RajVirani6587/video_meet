@@ -3,10 +3,14 @@ import 'package:provider/provider.dart';
 import 'package:sizer/sizer.dart';
 import 'package:video_meet/provider/provider_class.dart';
 import 'package:video_meet/view/Choose_Your_Interest_screen.dart';
+import 'package:video_meet/view/Video/newVideo_screen.dart';
 import 'package:video_meet/view/Video/tabbar_video.dart';
 import 'package:video_meet/view/Video/video_screen.dart';
+import 'package:video_meet/view/best_videoscreen/Best_Video_Screen.dart';
 import 'package:video_meet/view/bottom_barscreen.dart';
 import 'package:video_meet/view/demo_screen.dart';
+import 'package:video_meet/view/location_screen/deatail_screen.dart';
+import 'package:video_meet/view/location_screen/location_screen.dart';
 import 'package:video_meet/view/notification.dart';
 import 'package:video_meet/view/fast_timescreen.dart';
 import 'package:video_meet/view/introimage_screen.dart';
@@ -36,6 +40,10 @@ void main(){
                'bottom':(context)=>Bottom_Screen(),
                'tab':(context)=>Tabarvideo_Screen(),
                'fvideo':(contxt)=>Video_Screen(),
+               'nvideo':(context)=>Newvideo_Screen(),
+               'bvideo':(context)=>BestVideo_Screen(),
+               'location':(context)=>Location_Screen(),
+               'detail':(context)=>Detail_screen(),
 
                'd':(context)=>MyHomePage(),
              },
