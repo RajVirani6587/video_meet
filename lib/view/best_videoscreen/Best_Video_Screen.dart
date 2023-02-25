@@ -47,7 +47,7 @@ class _BestVideo_ScreenState extends State<BestVideo_Screen> {
             Expanded(
               child: GridView.builder(
                   itemCount: home_providerf!.l1.length,
-                  gridDelegate:  SliverGridDelegateWithFixedCrossAxisCount(crossAxisCount: 3,mainAxisExtent: 27.h),
+                  gridDelegate:  SliverGridDelegateWithFixedCrossAxisCount(crossAxisCount: 3,mainAxisExtent: 23.h),
                   itemBuilder: (context,index){
                      return   Padding(
                        padding:  EdgeInsets.all(3.sp),
@@ -66,7 +66,7 @@ class _BestVideo_ScreenState extends State<BestVideo_Screen> {
                                  ClipRRect(borderRadius: BorderRadius.circular(10.sp),
                                    child: Image.asset("${home_providerf!.l1[index].TImage}",
                                      fit: BoxFit.fill,
-                                     height:25.h,
+                                     height:22.h,
                                      width: 48.w,
                                    ),
                                  ),

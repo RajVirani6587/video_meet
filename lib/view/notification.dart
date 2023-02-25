@@ -65,7 +65,6 @@ class _Notification_screenState extends State<Notification_screen> {
               Navigator.pushNamed(context,'bottom');
               Map<Permission, PermissionStatus> map =
               await[Permission.microphone, Permission.camera , Permission.storage].request();
-
               if (await Permission.camera.isDenied) {
                 print("Camera Deny");
               }
@@ -75,7 +74,6 @@ class _Notification_screenState extends State<Notification_screen> {
               if(await Permission.microphone.isDenied) {
                 print("microphone");
               }
-
               showCustomDialog(context);
             },
             child: Container(

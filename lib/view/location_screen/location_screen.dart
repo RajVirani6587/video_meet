@@ -41,6 +41,7 @@ class _Location_ScreenState extends State<Location_Screen> {
                     child: InkWell(
                       onTap: (){
                         home_providerf!.Datapickkk = Model(
+                          con: home_providerf!.l1[index].con,
                           Image: home_providerf!.l1[index].Image,
                            km:   home_providerf!.l1[index].km,
                            Name: home_providerf!.l1[index].Name,
