@@ -9,6 +9,7 @@ import 'package:video_meet/view/Video/tabbar_video.dart';
 import 'package:video_meet/view/Video/video_screen.dart';
 import 'package:video_meet/view/Video/videoplay_screen.dart';
 import 'package:video_meet/view/best_videoscreen/Best_Video_Screen.dart';
+import 'package:video_meet/view/best_videoscreen/best_videoplay_screen.dart';
 import 'package:video_meet/view/bottom_barscreen.dart';
 import 'package:video_meet/view/demo_screen.dart';
 import 'package:video_meet/view/location_screen/deatail_screen.dart';
@@ -51,6 +52,7 @@ void main()async{
                'location':(context)=>Location_Screen(),
                'detail':(context)=>Detail_screen(),
                'profile':(context)=>Profile_Screen(),
+               'bplay':(context)=>Best_Videoplay_Screen(),
 
                'd':(context)=>MyHomePage(),
              },

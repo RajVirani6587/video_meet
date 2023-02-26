@@ -1,7 +1,9 @@
 import 'dart:io';
 
+import 'package:face_camera/face_camera.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:sizer/sizer.dart';
 import 'package:video_meet/provider/provider_class.dart';
 import 'package:video_player/video_player.dart';
 
@@ -40,34 +42,78 @@ class _VideoPlay_ScreenState extends State<VideoPlay_Screen> {
         child: Scaffold(
           resizeToAvoidBottomInset: false,
           backgroundColor: Colors.black,
-          body: Stack(
-              alignment: Alignment.bottomRight,
-              children: [
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
+          body:Builder(builder:(context){
+            if (_capturedImage != null) {
+              return Center(
+                child: Stack(
+                  alignment: Alignment.bottomCenter,
                   children: [
-                    Container(
-                      height: MediaQuery.of(context).size.height*1,
-                      width: MediaQuery.of(context).size.width*0.99,
-                      child: ClipRRect(
-                          borderRadius: BorderRadius.circular(10),
-                          child: video_controller.value.isInitialized
-                              ?
-                          AspectRatio(
-                              aspectRatio: video_controller.value.aspectRatio,
-                              child: VideoPlayer(video_controller))
-                              :
-                          Center(child: const CircularProgressIndicator(color: Colors.green,))
-                      ),
-                    ),
+                    Image.file(_capturedImage!),
                   ],
                 ),
-                Text("${home_providerf!.Datapickkk!.flag}"),
-              ],
+              );
+            }
+           return  Stack(
+                alignment: Alignment.bottomRight,
+                children: [
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      Container(
+                        height: 100.h,
+                        width: 99.w,
+                        child: ClipRRect(
+                            borderRadius: BorderRadius.circular(10),
+                            child: video_controller.value.isInitialized
+                                ?
+                            AspectRatio(
+                                aspectRatio: video_controller.value.aspectRatio,
+                                child: VideoPlayer(video_controller))
+                                :
+                            Center(child: const CircularProgressIndicator(color: Colors.green,))
+                        ),
+                      ),
+                    ],
+                  ),
+                  ClipRRect(
+                    borderRadius: BorderRadius.circular(10),
+                    child: Container(
+                      height: MediaQuery.of(context).size.height*0.27,
+                      width: MediaQuery.of(context).size.width*0.35,
+                      child: SmartFaceCamera(
+                        showFlashControl: false,
+                        showControls: false,
+                        defaultCameraLens: CameraLens.front,
+                        onCapture: (File? image)  {
+                          _capturedImage = image;
+                        },
+                      ),
+                    ),
+                  ),
+                ],
+              );
+            },
+          ),
+          floatingActionButton: Padding(
+            padding: const  EdgeInsets.only(bottom: 5),
+            child: Align(
+              alignment: Alignment.bottomCenter,
+              child: Container(
+                width: MediaQuery.of(context).size.width*0.15,
+                height: MediaQuery.of(context).size.height*0.15,
+                child: FloatingActionButton(
+                  onPressed: (){
+                    dialog();
+                  },
+                  child: Icon(Icons.call,size: 40,),
+                  backgroundColor: Colors.red,
+                ),
+              ),
             ),
           ),
         ),
-      );
+      ),
+    );
   }
   Future<bool> dialog() async {
     home_providerf!.playpause();
