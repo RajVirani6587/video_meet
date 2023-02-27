@@ -24,9 +24,8 @@ class _Best_VideoplayState extends State<Best_Videoplay_Screen> {
           video_controller.setLooping(true);
           video_controller.play();
         });
-      });
+       });
   }
-
   @override
   Widget build(BuildContext context) {
     home_providerf = Provider.of<Home_Provider>(context,listen: false);
@@ -53,7 +52,7 @@ class _Best_VideoplayState extends State<Best_Videoplay_Screen> {
                               aspectRatio: video_controller.value.aspectRatio,
                               child: VideoPlayer(video_controller))
                               :
-                          Center(child: const CircularProgressIndicator(color: Colors.green,))
+                          Center(child: const CircularProgressIndicator(color: Colors.green,)),
                       ),
                     ),
                   ],
@@ -67,7 +66,7 @@ class _Best_VideoplayState extends State<Best_Videoplay_Screen> {
                         children: [
                           ClipRRect(borderRadius: BorderRadius.circular(60.sp),child: Image.asset("${home_providerf!.Datapickkk!.Image}",height: 7.h,width: 7.h,fit: BoxFit.fill,)),
                           SizedBox(width: 4.w,),
-                          Text("${home_providerf!.Datapickkk!.Name}",style: TextStyle(color: Colors.white,fontWeight: FontWeight.bold,fontSize: 18.sp),)
+                          Text("${home_providerf!.Datapickkk!.Name}",style: TextStyle(color: Colors.white,fontWeight: FontWeight.bold,fontSize: 18.sp),),
                         ],
                       ),
                       Padding(

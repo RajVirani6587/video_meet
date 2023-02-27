@@ -1,5 +1,7 @@
 import 'package:face_camera/face_camera.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
+import 'package:google_mobile_ads/google_mobile_ads.dart';
 import 'package:provider/provider.dart';
 import 'package:sizer/sizer.dart';
 import 'package:video_meet/provider/provider_class.dart';
@@ -10,8 +12,8 @@ import 'package:video_meet/view/Video/video_screen.dart';
 import 'package:video_meet/view/Video/videoplay_screen.dart';
 import 'package:video_meet/view/best_videoscreen/Best_Video_Screen.dart';
 import 'package:video_meet/view/best_videoscreen/best_videoplay_screen.dart';
+import 'package:video_meet/view/best_videoscreen/trendingvideo_Screen.dart';
 import 'package:video_meet/view/bottom_barscreen.dart';
-import 'package:video_meet/view/demo_screen.dart';
 import 'package:video_meet/view/location_screen/deatail_screen.dart';
 import 'package:video_meet/view/location_screen/location_screen.dart';
 import 'package:video_meet/view/notification.dart';
@@ -20,12 +22,18 @@ import 'package:video_meet/view/introimage_screen.dart';
 import 'package:video_meet/view/profile/Profile_screen.dart';
 import 'package:video_meet/view/splash_screen/intro_screen.dart';
 import 'package:video_meet/view/splash_screen/splash_screen.dart';
+import 'package:video_meet/view/terms_screen.dart';
 import 'package:video_meet/view/yourself_screen.dart';
 
 void main()async{
-  WidgetsFlutterBinding.ensureInitialized(); //Add this
+  WidgetsFlutterBinding.ensureInitialized();
+  MobileAds.instance.initialize();//Add this
   await FaceCamera.initialize();
-   runApp(
+
+  SystemChrome.setPreferredOrientations([
+    DeviceOrientation.portraitUp,
+    DeviceOrientation.portraitDown,
+  ]).then((value) => runApp(
      MultiProvider(
        providers: [
          ListenableProvider(create: (context)=>Home_Provider()),
@@ -34,7 +42,7 @@ void main()async{
          builder: (context, orientation, deviceType){
            return  MaterialApp(
              debugShowCheckedModeBanner: false,
-            initialRoute: 'yourself',
+            initialRoute: 'terms',
              routes: {
                '/':(context)=>Splash_Screen(),
                'first':(contest)=>First_TimeScrren(),
@@ -53,12 +61,13 @@ void main()async{
                'detail':(context)=>Detail_screen(),
                'profile':(context)=>Profile_Screen(),
                'bplay':(context)=>Best_Videoplay_Screen(),
-
-               'd':(context)=>MyHomePage(),
+               'tvideo':(context)=>Trending_video_Screen(),
+               'terms':(context)=>Terms_Screen(),
              },
            );
          },
        ),
      ),
+    )
    );
 }

@@ -45,6 +45,11 @@ dependencies:
   permission_handler: ^10.2.0
   rolling_bottom_bar: ^0.2.2
   face_camera: ^0.0.6
+  http: ^0.13.5
+  google_mobile_ads: ^2.3.0
+  connectivity_plus: ^3.0.3
+  internet_connection_checker: ^1.0.0+1
+  cached_network_image: ^3.2.3
 
 dev_dependencies:
   flutter_test:

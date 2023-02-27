@@ -1,8 +1,11 @@
+import 'dart:async';
 import 'dart:io';
 
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:sizer/sizer.dart';
+import 'package:video_meet/model/ads_screen.dart';
 import 'package:video_meet/model/model_class.dart';
 import 'package:video_meet/provider/provider_class.dart';
 
@@ -16,6 +19,7 @@ class Profile_Screen extends StatefulWidget {
 class _Profile_ScreenState extends State<Profile_Screen> {
   Home_Provider? home_providerf;
   Home_Provider? home_providert;
+  bool isloading=false;
   @override
   Widget build(BuildContext context) {
     txt m1 = ModalRoute.of(context)!.settings.arguments as txt;
@@ -28,14 +32,27 @@ class _Profile_ScreenState extends State<Profile_Screen> {
           SizedBox(height: 8.h),
           Align(
             alignment: Alignment.center,
-            child: Container(
-              height: 15.h,
-              width: 15.h,
-              child: CircleAvatar(
-                backgroundImage: FileImage(File(m1.image.toString())),
+            child:CircleAvatar(
+              child: CachedNetworkImage(
+                height: 15.h,
+                width: 15.h,
+                fit: BoxFit.fill,
+                imageUrl:m1.image.toString(),
+                placeholder: (context, _) => CircleAvatar(
+                  child: Center(
+                    child: Image.asset(
+                        "assets/image/d5b04cc3dcd8c17702549ebc5f1acf1a.png",height: 13.h,width: 13.h,fit: BoxFit.fill,),
+                  ),
+                ),
+                errorWidget: (context, _, __) => CircleAvatar(
+                  child: Center(
+                    child: Image.asset(
+                            "assets/image/d5b04cc3dcd8c17702549ebc5f1acf1a.png",height: 13.h,width: 13.h,fit: BoxFit.fill,),
+                  ),
+                ),
               ),
             ),
-          ),
+            ),
           SizedBox(height: 5.h),
           ListTile(
             leading: Container(
@@ -91,7 +108,17 @@ class _Profile_ScreenState extends State<Profile_Screen> {
           ),
           InkWell(
             onTap: (){
-               Navigator.pushReplacementNamed(context,'first');
+
+              interVideoAds();
+              setState(() {
+                isloading=true;
+              });
+              Timer(Duration(seconds: 4), () {
+                setState(() {
+                  isloading=false;
+                });
+                Navigator.pushReplacementNamed(context,'first');
+              });
             },
             child: ListTile(
               leading: Container(
@@ -114,7 +141,7 @@ class _Profile_ScreenState extends State<Profile_Screen> {
           SizedBox(height: 5.h),
 
         ],
-      ),
+      )
     );
   }
 }

@@ -1,6 +1,12 @@
+import 'dart:async';
+
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
+import 'package:lottie/lottie.dart';
+import 'package:provider/provider.dart';
 import 'package:sizer/sizer.dart';
+import 'package:video_meet/model/ads_screen.dart';
+import 'package:video_meet/provider/provider_class.dart';
 import 'package:video_player/video_player.dart';
 
 
@@ -13,8 +19,9 @@ class First_TimeScrren extends StatefulWidget {
 
 class _First_TimeScrrenState extends State<First_TimeScrren> {
    VideoPlayerController ? videoPlayerController;
-
-
+   bool isloading=false;
+   Home_Provider? home_providerf;
+   Home_Provider? home_providert;
    @override
   void initState() {
     super.initState();
@@ -29,29 +36,29 @@ class _First_TimeScrrenState extends State<First_TimeScrren> {
   }
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      body: Stack(
-        alignment: Alignment.bottomCenter,
-        children: [
-          Stack(
-            children: [
-              Container(
-                height:100.h,
-                width:100 .w,
-                child:videoPlayerController!.value.isInitialized ?
-                AspectRatio(
-                    aspectRatio: videoPlayerController!.value.aspectRatio,
-                    child: VideoPlayer(videoPlayerController!)) :
-                Center(child: const CircularProgressIndicator(color: Colors.green,)),
-              ),
-              Opacity(opacity: 0.6,child: Container(color: Color(0xFFFF4D67),height: 100.h,width: 100.w,)),
-            ],
-          ),
-          InkWell(
-            onTap: (){
-              Navigator.pushNamed(context,'intro');
-            },
-            child: Container(
+    home_providerf = Provider.of<Home_Provider>(context,listen: false);
+    home_providert = Provider.of<Home_Provider>(context,listen: true);
+    return WillPopScope(
+      onWillPop: dialog,
+      child: Scaffold(
+        body: Stack(
+          alignment: Alignment.bottomCenter,
+          children: [
+            Stack(
+              children: [
+                Container(
+                  height:100.h,
+                  width:100 .w,
+                  child:videoPlayerController!.value.isInitialized ?
+                  AspectRatio(
+                      aspectRatio: videoPlayerController!.value.aspectRatio,
+                      child: VideoPlayer(videoPlayerController!)) :
+                  Center(child: const CircularProgressIndicator(color: Colors.green,)),
+                ),
+                Opacity(opacity: 0.6,child: Container(color: Color(0xFFFF4D67),height: 100.h,width: 100.w,)),
+              ],
+            ),
+            Container(
               height: 40.h,
               width: 100.w,
               color: Colors.white,
@@ -60,19 +67,34 @@ class _First_TimeScrrenState extends State<First_TimeScrren> {
                   SizedBox(height: 4.h,),
                    Text("Meet",style: TextStyle(color: Color(0xFFFF4D67),fontSize: 50.sp,fontWeight: FontWeight.bold),),
                   SizedBox(height: 2.h,),
-                  Container(
-                    height: 8.h,
-                  width: 85.w,
-                  child: Center(child: Text("Fast Time",style: TextStyle(color: Colors.white,fontSize: 25.sp,fontWeight: FontWeight.bold),)),
-                  decoration: BoxDecoration(color: Color(0xFFFF4D67),borderRadius: BorderRadius.circular(8.sp)),
+                  InkWell(
+                    onTap: (){
+                      interVideoAds();
+                      setState(() {
+                        isloading=true;
+                      });
+                      Timer(Duration(seconds: 4), () {
+                        setState(() {
+                          isloading=false;
+                        });
+                        Navigator.pushReplacementNamed(context,'intro');
+                      });
+                    },
+                    child: Container(
+                      height: 8.h,
+                    width: 85.w,
+                    child: Center(child: Text("Fast Time",style: TextStyle(color: Colors.white,fontSize: 25.sp,fontWeight: FontWeight.bold),)),
+                    decoration: BoxDecoration(color: Color(0xFFFF4D67),borderRadius: BorderRadius.circular(8.sp)),
+                    ),
                   ),
                   SizedBox(height: 2.h,),
                   privacyPolicyLinkAndTermsOfService(),
                 ],
               ),
             ),
-          ),
-        ],
+            isloading?Center(child: Lottie.asset("assets/lottie/129489-heart-filled (1).json",width: 20.h,height: 20.h,fit: BoxFit.fill)):Container()
+          ],
+        ),
       ),
     );
   }
@@ -109,13 +131,19 @@ class _First_TimeScrrenState extends State<First_TimeScrren> {
                                recognizer: TapGestureRecognizer()
                                  ..onTap = () {
                                  }
-                           )
+                           ),
                          ]
-                     )
+                     ),
                    ]
-               )
-           )
+               ),
+           ),
        ),
      );
    }
+   Future<bool> dialog() async {
+     home_providerf!.playpause();
+     videoPlayerController!.pause();
+     return await true;
+   }
 }
+//package com.example.video_meet
