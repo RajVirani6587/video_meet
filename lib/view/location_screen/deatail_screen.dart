@@ -97,14 +97,11 @@ class _Detail_screenState extends State<Detail_screen> {
             ),
           ),
           SizedBox(height: 1.5.h,),
-
           Container(height: 17.h,width: 100.w,color: Colors.white,),
-
           SizedBox(height: 1.5.h,),
           InkWell(onTap: (){
             Navigator.pushReplacementNamed(context,'videoplay');
           },child: Image.asset("assets/image/Group 37.png",height: 7.h,width: 7.h,fit: BoxFit.fill,))
-
         ],
       ),
     );

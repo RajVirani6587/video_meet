@@ -34,7 +34,7 @@ void main()async{
          builder: (context, orientation, deviceType){
            return  MaterialApp(
              debugShowCheckedModeBanner: false,
-            initialRoute: 'bottom',
+            initialRoute: 'yourself',
              routes: {
                '/':(context)=>Splash_Screen(),
                'first':(contest)=>First_TimeScrren(),

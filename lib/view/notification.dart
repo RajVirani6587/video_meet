@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:permission_handler/permission_handler.dart';
 import 'package:sizer/sizer.dart';
+import 'package:video_meet/model/model_class.dart';
 
 class Notification_screen extends StatefulWidget {
   const Notification_screen({Key? key}) : super(key: key);
@@ -12,6 +13,7 @@ class Notification_screen extends StatefulWidget {
 class _Notification_screenState extends State<Notification_screen> {
   @override
   Widget build(BuildContext context) {
+    txt m1 = ModalRoute.of(context)!.settings.arguments as txt;
     return Scaffold(
       body: Column(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -62,7 +64,7 @@ class _Notification_screenState extends State<Notification_screen> {
           SizedBox(height: 2.h,),
           InkWell(
             onTap: () async {
-              Navigator.pushNamed(context,'bottom');
+              Navigator.pushNamed(context,'bottom',arguments: m1);
               Map<Permission, PermissionStatus> map =
               await[Permission.microphone, Permission.camera , Permission.storage].request();
               if (await Permission.camera.isDenied) {
@@ -140,7 +142,7 @@ class _Notification_screenState extends State<Notification_screen> {
                     SizedBox(height: 1.h,),
                     GestureDetector(
                       onTap: (){
-                        Navigator.pushNamed(context,'/');
+                        Navigator.pop(context);
                       },
                       child: Container(
                         height: 7.h,

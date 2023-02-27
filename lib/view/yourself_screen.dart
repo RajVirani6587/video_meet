@@ -5,6 +5,7 @@ import 'package:flutter_neumorphic/flutter_neumorphic.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:intl/intl.dart';
 import 'package:sizer/sizer.dart';
+import 'package:video_meet/model/model_class.dart';
 
 class Yourself_Screen extends StatefulWidget {
   const Yourself_Screen({Key? key}) : super(key: key);
@@ -33,262 +34,335 @@ class _Yourself_ScreenState extends State<Yourself_Screen> {
     'mexico','nepal','new zealand','norway','oman','portugal','qatar','russia','usa'];
 
   String selectContry = 'India';
+
+  var txtkey = GlobalKey<FormState>();
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      // resizeToAvoidBottomInset: false,
-      backgroundColor: Colors.black,
-      body:SingleChildScrollView(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          children: [
-            SizedBox(height: 2.h,),
-            ListTile(
-              leading: IconButton(onPressed: (){
-                Navigator.pushNamed(context, 'interest');
-              },icon:Icon(Icons.arrow_back_ios,color: Colors.white,size: 30),),
-              title: Text("Tell us About Yourself",style: TextStyle(color: Colors.white,fontWeight: FontWeight.bold),),
-            ) ,
-            SizedBox(height: 3.h,),
-            InkWell(
-              onTap: (){
-                bottomsheetdilaog();
-              },
-              child: Container(
-                height: 20.h,
-                width: 20.h,
-                decoration: BoxDecoration(
-                  shape: BoxShape.circle,
-                  color: Colors.white30,
-                ),
-                child: f1.path.isEmpty?
-                Container(height: 20.h,width: 20.h,
-                  decoration: BoxDecoration(shape: BoxShape.circle, border: Border.all(color: Colors.white,width: 5),),
-                  child: Icon(Icons.person,color: Colors.white,size: 80.sp,),):
-                CircleAvatar(backgroundImage: FileImage(f1),
+    return Form(
+      key:txtkey,
+      child: Scaffold(
+        // resizeToAvoidBottomInset: false,
+        backgroundColor: Colors.black,
+        body:SingleChildScrollView(
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              SizedBox(height: 2.h,),
+              ListTile(
+                leading: IconButton(onPressed: (){
+                  Navigator.pushNamed(context, 'interest');
+                },icon:Icon(Icons.arrow_back_ios,color: Colors.white,size: 30),),
+                title: Text("Tell us About Yourself",style: TextStyle(color: Colors.white,fontWeight: FontWeight.bold),),
+              ) ,
+              SizedBox(height: 3.h,),
+              InkWell(
+                onTap: (){
+                  bottomsheetdilaog();
+                },
+                child: Container(
+                  height: 20.h,
+                  width: 20.h,
+                  decoration: BoxDecoration(
+                    shape: BoxShape.circle,
+                    color: Colors.white30,
+                  ),
+                  child: f1.path.isEmpty?
+                  Container(height: 20.h,width: 20.h,
+                    decoration: BoxDecoration(shape: BoxShape.circle, border: Border.all(color: Colors.white,width: 5),),
+                    child: Icon(Icons.person,color: Colors.white,size: 80.sp,),):
+                  CircleAvatar(backgroundImage: FileImage(f1),
+                  ),
                 ),
               ),
-            ),
-            Column(
-              children: [
-                SizedBox(height: 2.h,),
-                Padding(
-                  padding:  EdgeInsets.symmetric(horizontal:5.w),
-                  child: TextField(
-                    style: TextStyle(color: Colors.white),
-                    controller: txtname,
-                    decoration: InputDecoration(
-                      filled: true,
-                        fillColor: Colors.white12,
-                        prefixIcon: Icon(Icons.person,color: Colors.white,),
-                        label: Text("NickName",style: TextStyle(color: Colors.white),),
-                        enabledBorder: OutlineInputBorder(
-                          borderRadius: BorderRadius.circular(10.sp),
-                          borderSide: BorderSide(width: 2),
-                        ),
-                        focusedBorder: OutlineInputBorder(
+              Column(
+                children: [
+                  SizedBox(height: 2.h,),
+                  Padding(
+                    padding:  EdgeInsets.symmetric(horizontal:5.w),
+                    child: TextFormField(
+                      validator: (value){
+                              return value!.length < 2?'Name must be greater than two characters':null;
+                              },
+                      style: TextStyle(color: Colors.white),
+                      controller: txtname,
+                      decoration: InputDecoration(
+                        filled: true,
+                          fillColor: Colors.white12,
+                          prefixIcon: Icon(Icons.person,color: Colors.white,),
+                          label: Text("NickName",style: TextStyle(color: Colors.white),),
+                          enabledBorder: OutlineInputBorder(
                             borderRadius: BorderRadius.circular(10.sp),
-                          borderSide: BorderSide(width: 2,color: Colors.white),
-                        ),
-                    ),
-                  ),
-                ),
-                SizedBox(height: 2.h,),
-                Padding(
-                  padding:  EdgeInsets.symmetric(horizontal:5.w),
-                  child: Stack(
-                    alignment: Alignment.centerRight,
-                    children: [
-                      TextField(
-                        style: TextStyle(color: Colors.white),
-                        controller: txtgender,
-                        decoration: InputDecoration(
-                          filled: true,
-                            fillColor: Colors.white12,
-                            prefixIcon: Icon(Icons.call_split,color: Colors.white,),
-                            label: Text("Gender",style: TextStyle(color: Colors.white),),
-                            enabledBorder: OutlineInputBorder(
+                            borderSide: BorderSide(width: 2),
+                          ),
+                          focusedBorder: OutlineInputBorder(
                               borderRadius: BorderRadius.circular(10.sp),
-                              borderSide: BorderSide(width: 2),
-                            ),
-                            focusedBorder: OutlineInputBorder(
-                                borderRadius: BorderRadius.circular(10.sp),
-                              borderSide: BorderSide(width: 2,color: Colors.white),
-                            ),
-                        ),
-                      ),
-                      Padding(
-                        padding:  EdgeInsets.only(right: 5),
-                        child: DropdownButton(
-                          value: select,
-                            items: [
-                          DropdownMenuItem(child: Text("Male",style: TextStyle(color: Color(0xFFFF4D67)),),value: "Male",),
-                          DropdownMenuItem(child: Text("Female",style: TextStyle(color: Color(0xFFFF4D67)),),value: "Female",),
-                          DropdownMenuItem(child: Text("others",style: TextStyle(color: Color(0xFFFF4D67)),),value: "others",),
-                        ],
-                            onChanged:(value){
-                          setState(() {
-                            txtgender.text=value! ;
-                            select = value;
-                          });
-                        }),
-                      )
-                    ],
-                  ),
-                ),
-                SizedBox(height: 2.h,),
-                Padding(
-                  padding:  EdgeInsets.symmetric(horizontal:5.w),
-                  child: TextField(
-                    keyboardType: TextInputType.numberWithOptions(),
-                    readOnly: true,
-                    style: TextStyle(color: Colors.white),
-                    controller: txtage,
-                    onTap: (){
-                      datepick();
-                    },
-                    decoration: InputDecoration(
-                      filled: true,
-                        fillColor: Colors.white12,
-                        prefixIcon: Icon(Icons.calendar_month,color: Colors.white,),
-                        label: Text("Age",style: TextStyle(color: Colors.white),),
-                        enabledBorder: OutlineInputBorder(
-                          borderRadius: BorderRadius.circular(10.sp),
-                          borderSide: BorderSide(width: 2),
-                        ),
-                        focusedBorder: OutlineInputBorder(
-                            borderRadius: BorderRadius.circular(10.sp),
-                          borderSide: BorderSide(width: 2,color: Colors.white),
-                        ),
-                    ),
-                  ),
-                ),
-                SizedBox(height: 2.h,),
-                Padding(
-                  padding:  EdgeInsets.symmetric(horizontal:5.w),
-                  child: Stack(
-                    alignment: Alignment.centerRight,
-                    children: [
-                      TextField(
-                        style: TextStyle(color: Colors.white),
-                        controller: txtcountry,
-                        onTap: (){},
-                        decoration: InputDecoration(
-                          filled: true,
-                            fillColor: Colors.white12,
-                            prefixIcon: Icon(Icons.location_on_outlined,color: Colors.white,),
-                            label: Text("Country",style: TextStyle(color: Colors.white),),
-                            enabledBorder: OutlineInputBorder(
-                              borderRadius: BorderRadius.circular(10.sp),
-                              borderSide: BorderSide(width: 2),
-                            ),
-                            focusedBorder: OutlineInputBorder(
-                                borderRadius: BorderRadius.circular(10.sp),
-                              borderSide: BorderSide(width: 2,color: Colors.white),
-                            ),
+                            borderSide: BorderSide(width: 2,color: Colors.white),
                           ),
                       ),
-                      Padding(
-                        padding:  EdgeInsets.only(right: 5),
-                        child: DropdownButton(
-                          style: TextStyle(color: Color(0xFFFF4D67)),
-                            value: selectContry,
-                            items: [
-                              DropdownMenuItem(child: Text("India",),value: "India",),
-                              DropdownMenuItem(child: Text("Pakistan",),value: "Pakistan",),
-                              DropdownMenuItem(child: Text("Bangladesh",),value: "Bangladesh",),
-                              DropdownMenuItem(child: Text("Afghanistan",),value: "Afghanistan",),
-                              DropdownMenuItem(child: Text("Angola",),value: "Angola",),
-                              DropdownMenuItem(child: Text("Aruba",),value: "Aruba",),
-                              DropdownMenuItem(child: Text("vietnam",),value: "vietnam",),
-                              DropdownMenuItem(child: Text("egypt",),value: "egypt",),
-                              DropdownMenuItem(child: Text("saudi arabia",),value: "saudi arabia",),
-                              DropdownMenuItem(child: Text("UAE",),value: "UAE",),
-                              DropdownMenuItem(child: Text("syria",),value: "syria",),
-                              DropdownMenuItem(child: Text("turkey",),value: "turkey",),
-                              DropdownMenuItem(child: Text("colombia",),value: "colombia",),
-                              DropdownMenuItem(child: Text("venezuela",),value: "venezuela",),
-                              DropdownMenuItem(child: Text("Brazil",),value: "Brazil",),
-                              DropdownMenuItem(child: Text("nigeria",),value: "nigeria",),
-                              DropdownMenuItem(child: Text("madagascar",),value: "madagascar",),
-                              DropdownMenuItem(child: Text("ukraine",),value: "ukraine",),
-                              DropdownMenuItem(child: Text("bahrain",),value: "bahrain",),
-                              DropdownMenuItem(child: Text("taiwan",),value: "taiwan",),
-                              DropdownMenuItem(child: Text("Belize",),value: "Belize",),
-                              DropdownMenuItem(child: Text("bosnia-and-herzegovina",),value: "bosnia-and-herzegovina",),
-                              DropdownMenuItem(child: Text("canada",),value: "canada",),
-                              DropdownMenuItem(child: Text("denmark",),value: "denmark",),
-                              DropdownMenuItem(child: Text("finland",),value: "finland",),
-                              DropdownMenuItem(child: Text("france",),value: "france",),
-                              DropdownMenuItem(child: Text("hong kong",),value: "hong kong",),
-                              DropdownMenuItem(child: Text("iran",),value: "iran",),
-                              DropdownMenuItem(child: Text("israel",),value: "israel",),
-                              DropdownMenuItem(child: Text("jordan",),value: "jordan",),
-                              DropdownMenuItem(child: Text("japan",),value: "japan",),
-                              DropdownMenuItem(child: Text("kuwait",),value: "kuwait",),
-                              DropdownMenuItem(child: Text("mexico",),value: "mexico",),
-                              DropdownMenuItem(child: Text("nepal",),value: "nepal",),
-                              DropdownMenuItem(child: Text("new zealand",),value: "new zealand",),
-                              DropdownMenuItem(child: Text("norway",),value: "norway",),
-                              DropdownMenuItem(child: Text("oman",),value: "oman",),
-                              DropdownMenuItem(child: Text("portugal",),value: "portugal",),
-                              DropdownMenuItem(child: Text("qatar",),value: "qatar",),
-                              DropdownMenuItem(child: Text("russia",),value: "russia",),
-                              DropdownMenuItem(child: Text("usa",),value: "usa",),
-                            ],
-                            onChanged:(value){
-                              setState(() {
-                                txtcountry.text=value!;
-                                selectContry = value;
-                              });
-                            }),
-                       ),
-                     ],
-                  ),
-                ),
-                SizedBox(height: 2.h,),
-                Container(
-                  height: 15.h,
-                  width: 100.w,
-                  color: Colors.white,
-                ),
-              ],
-            ),
-            SizedBox(height: 2.h,),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-              children: [
-                InkWell(
-                  onTap: (){
-                    Navigator.pushNamed(context,'notification');
-                  },
-                  child: Container(
-                    height: 7.h,
-                    width: 45.w,
-                    decoration: BoxDecoration(
-                        color: Colors.white30,
-                        borderRadius: BorderRadius.circular(20.sp)
                     ),
-                    child: Center(child: Text("Skip",style: TextStyle(color: Colors.white,fontSize: 18.sp),)),
                   ),
-                ),
-                InkWell(
-                  onTap: (){
-                    Navigator.pushNamed(context,'notification');
-                  },
-                  child: Container(
-                    height: 7.h,
-                    width: 45.w,
-                    decoration: BoxDecoration(
-                        color: Color(0xFFFF4D67),
-                        borderRadius: BorderRadius.circular(20.sp)
+                  SizedBox(height: 2.h,),
+                  Padding(
+                    padding:  EdgeInsets.symmetric(horizontal:5.w),
+                    child: Stack(
+                      alignment: Alignment.centerRight,
+                      children: [
+                        TextFormField(
+                          validator: (value) {
+                            if (value!.isEmpty) {
+                              return "Enter Gender";
+                            }
+                            else {
+                              return null;
+                            }
+                          },
+                          style: TextStyle(color: Colors.white),
+                          controller: txtgender,
+                          decoration: InputDecoration(
+                            filled: true,
+                              fillColor: Colors.white12,
+                              prefixIcon: Icon(Icons.call_split,color: Colors.white,),
+                              label: Text("Gender",style: TextStyle(color: Colors.white),),
+                              enabledBorder: OutlineInputBorder(
+                                borderRadius: BorderRadius.circular(10.sp),
+                                borderSide: BorderSide(width: 2),
+                              ),
+                              focusedBorder: OutlineInputBorder(
+                                  borderRadius: BorderRadius.circular(10.sp),
+                                borderSide: BorderSide(width: 2,color: Colors.white),
+                              ),
+                          ),
+                        ),
+                        Padding(
+                          padding:  EdgeInsets.only(right: 5),
+                          child: DropdownButton(
+                            value: select,
+                              items: [
+                            DropdownMenuItem(child: Text("Male",style: TextStyle(color: Color(0xFFFF4D67)),),value: "Male",),
+                            DropdownMenuItem(child: Text("Female",style: TextStyle(color: Color(0xFFFF4D67)),),value: "Female",),
+                            DropdownMenuItem(child: Text("others",style: TextStyle(color: Color(0xFFFF4D67)),),value: "others",),
+                          ],
+                              onChanged:(value){
+                            setState(() {
+                              txtgender.text=value! ;
+                              select = value;
+                            });
+                          }),
+                        )
+                      ],
                     ),
-                    child: Center(child: Text("Continue",style: TextStyle(color: Colors.white,fontSize: 18.sp),)),
                   ),
-                ),
-              ],
-            ),
-          ],
+                  SizedBox(height: 2.h,),
+                  Padding(
+                    padding:  EdgeInsets.symmetric(horizontal:5.w),
+                    child: TextFormField(
+                      validator: (value) {
+                        if (value!.isEmpty) {
+                          return "Enter Age";
+                        }
+                        else {
+                          return null;
+                        }
+                      },
+                      keyboardType: TextInputType.numberWithOptions(),
+                      readOnly: true,
+                      style: TextStyle(color: Colors.white),
+                      controller: txtage,
+                      onTap: (){
+                        datepick();
+                      },
+                      decoration: InputDecoration(
+                        filled: true,
+                          fillColor: Colors.white12,
+                          prefixIcon: Icon(Icons.calendar_month,color: Colors.white,),
+                          label: Text("Age",style: TextStyle(color: Colors.white),),
+                          enabledBorder: OutlineInputBorder(
+                            borderRadius: BorderRadius.circular(10.sp),
+                            borderSide: BorderSide(width: 2),
+                          ),
+                          focusedBorder: OutlineInputBorder(
+                              borderRadius: BorderRadius.circular(10.sp),
+                            borderSide: BorderSide(width: 2,color: Colors.white),
+                          ),
+                      ),
+                    ),
+                  ),
+                  SizedBox(height: 2.h,),
+                  Padding(
+                    padding:  EdgeInsets.symmetric(horizontal:5.w),
+                    child: Stack(
+                      alignment: Alignment.centerRight,
+                      children: [
+                        TextFormField(
+                          validator: (value) {
+                            if (value!.isEmpty) {
+                              return "Enter Country";
+                            }
+                            else {
+                              return null;
+                            }
+                          },
+                          style: TextStyle(color: Colors.white),
+                          controller: txtcountry,
+                          onTap: (){},
+                          decoration: InputDecoration(
+                            filled: true,
+                              fillColor: Colors.white12,
+                              prefixIcon: Icon(Icons.location_on_outlined,color: Colors.white,),
+                              label: Text("Country",style: TextStyle(color: Colors.white),),
+                              enabledBorder: OutlineInputBorder(
+                                borderRadius: BorderRadius.circular(10.sp),
+                                borderSide: BorderSide(width: 2),
+                              ),
+                              focusedBorder: OutlineInputBorder(
+                                  borderRadius: BorderRadius.circular(10.sp),
+                                borderSide: BorderSide(width: 2,color: Colors.white),
+                              ),
+                            ),
+                        ),
+                        Padding(
+                          padding:  EdgeInsets.only(right: 5),
+                          child: DropdownButton(
+                            style: TextStyle(color: Color(0xFFFF4D67)),
+                              value: selectContry,
+                              items: [
+                                DropdownMenuItem(child: Text("India",),value: "India",),
+                                DropdownMenuItem(child: Text("Pakistan",),value: "Pakistan",),
+                                DropdownMenuItem(child: Text("Bangladesh",),value: "Bangladesh",),
+                                DropdownMenuItem(child: Text("Afghanistan",),value: "Afghanistan",),
+                                DropdownMenuItem(child: Text("Angola",),value: "Angola",),
+                                DropdownMenuItem(child: Text("Aruba",),value: "Aruba",),
+                                DropdownMenuItem(child: Text("vietnam",),value: "vietnam",),
+                                DropdownMenuItem(child: Text("egypt",),value: "egypt",),
+                                DropdownMenuItem(child: Text("saudi arabia",),value: "saudi arabia",),
+                                DropdownMenuItem(child: Text("UAE",),value: "UAE",),
+                                DropdownMenuItem(child: Text("syria",),value: "syria",),
+                                DropdownMenuItem(child: Text("turkey",),value: "turkey",),
+                                DropdownMenuItem(child: Text("colombia",),value: "colombia",),
+                                DropdownMenuItem(child: Text("venezuela",),value: "venezuela",),
+                                DropdownMenuItem(child: Text("Brazil",),value: "Brazil",),
+                                DropdownMenuItem(child: Text("nigeria",),value: "nigeria",),
+                                DropdownMenuItem(child: Text("madagascar",),value: "madagascar",),
+                                DropdownMenuItem(child: Text("ukraine",),value: "ukraine",),
+                                DropdownMenuItem(child: Text("bahrain",),value: "bahrain",),
+                                DropdownMenuItem(child: Text("taiwan",),value: "taiwan",),
+                                DropdownMenuItem(child: Text("Belize",),value: "Belize",),
+                                DropdownMenuItem(child: Text("bosnia-and-herzegovina",),value: "bosnia-and-herzegovina",),
+                                DropdownMenuItem(child: Text("canada",),value: "canada",),
+                                DropdownMenuItem(child: Text("denmark",),value: "denmark",),
+                                DropdownMenuItem(child: Text("finland",),value: "finland",),
+                                DropdownMenuItem(child: Text("france",),value: "france",),
+                                DropdownMenuItem(child: Text("hong kong",),value: "hong kong",),
+                                DropdownMenuItem(child: Text("iran",),value: "iran",),
+                                DropdownMenuItem(child: Text("israel",),value: "israel",),
+                                DropdownMenuItem(child: Text("jordan",),value: "jordan",),
+                                DropdownMenuItem(child: Text("japan",),value: "japan",),
+                                DropdownMenuItem(child: Text("kuwait",),value: "kuwait",),
+                                DropdownMenuItem(child: Text("mexico",),value: "mexico",),
+                                DropdownMenuItem(child: Text("nepal",),value: "nepal",),
+                                DropdownMenuItem(child: Text("new zealand",),value: "new zealand",),
+                                DropdownMenuItem(child: Text("norway",),value: "norway",),
+                                DropdownMenuItem(child: Text("oman",),value: "oman",),
+                                DropdownMenuItem(child: Text("portugal",),value: "portugal",),
+                                DropdownMenuItem(child: Text("qatar",),value: "qatar",),
+                                DropdownMenuItem(child: Text("russia",),value: "russia",),
+                                DropdownMenuItem(child: Text("usa",),value: "usa",),
+                              ],
+                              onChanged:(value){
+                                setState(() {
+                                  txtcountry.text=value!;
+                                  selectContry = value;
+                                });
+                              }),
+                         ),
+                       ],
+                    ),
+                  ),
+                  SizedBox(height: 2.h,),
+                  Container(
+                    height: 15.h,
+                    width: 100.w,
+                    color: Colors.white,
+                  ),
+                ],
+              ),
+              SizedBox(height: 2.h,),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                children: [
+                  InkWell(
+                    onTap: (){
+                      txt m1 = txt(
+                        age: "18+",
+                        image: "assets/image/d5b04cc3dcd8c17702549ebc5f1acf1a.png",
+                        name: "User",
+                        countey: "India",
+                        gender: "Male",
+                      );
+                      Navigator.pushNamed(context,'notification',arguments: m1);
+                    },
+                    child: Container(
+                      height: 7.h,
+                      width: 45.w,
+                      decoration: BoxDecoration(
+                          color: Colors.white30,
+                          borderRadius: BorderRadius.circular(20.sp)
+                      ),
+                      child: Center(child: Text("Skip",style: TextStyle(color: Colors.white,fontSize: 18.sp),)),
+                    ),
+                  ),
+                  InkWell(
+                    onTap: (){
+                      if(txtkey.currentState!.validate() == true && f1.path.isEmpty==false){
+                        txt m1 = txt(
+                          age: txtage.text,
+                          image: f1.path,
+                          name: txtname.text,
+                          countey: txtcountry.text,
+                          gender: txtgender.text,
+                        );
+                        Navigator.pushNamed(context,'notification',arguments: m1);
+                      }
+                      else{
+                        showDialog(
+                          context: context,
+                          builder: (BuildContext context){
+                            return Expanded(
+                              child: AlertDialog(
+                                title: Text('Red Alert',style: TextStyle(color: Colors.red),),
+                                content: Text('Please Upload a Photo'),
+                                actions: [
+                                  InkWell(onTap:(){
+                                    Navigator.pop(context);
+                                  },
+                                    child: Padding(
+                                      padding: EdgeInsets.all(8.0),
+                                      child: Container(
+                                        child: Text("ok",style: TextStyle(fontSize: 20),),
+                                      ),
+                                    ),
+                                  ),
+                                ],
+                              ),
+                            );
+                          },
+                        );
+                      }
+                    },
+                    child: Container(
+                      height: 7.h,
+                      width: 45.w,
+                      decoration: BoxDecoration(
+                          color: Color(0xFFFF4D67),
+                          borderRadius: BorderRadius.circular(20.sp)
+                      ),
+                      child: Center(child: Text("Continue",style: TextStyle(color: Colors.white,fontSize: 18.sp),)),
+                    ),
+                  ),
+                ],
+              ),
+            ],
+          ),
         ),
       ),
     );
