@@ -134,6 +134,7 @@ class _Detail_screenState extends State<Detail_screen> {
                   interVideoAds();
                   setState(() {
                     isloading=true;
+
                   });
                   Timer(Duration(seconds: 4), () {
                     setState(() {

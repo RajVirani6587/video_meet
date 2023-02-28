@@ -57,6 +57,46 @@ class _Best_VideoplayState extends State<Best_Videoplay_Screen> {
                     ),
                   ],
                 ),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.end,
+                  children: [
+                    Padding(
+                      padding:  EdgeInsets.only(right:1.w,bottom: 8.h),
+                      child: PopupMenuButton(
+                          initialValue: 2,
+                          icon: Icon(Icons.more_vert,color: Colors.white,size: 25.sp,),
+                          itemBuilder: (context)=>[
+                            PopupMenuItem(child: InkWell(onTap: (){reportsheetdilaog();},child: Text("Report"))),
+                            PopupMenuItem(child: InkWell(onTap: (){
+                              showDialog(
+                                context: context,
+                                builder: (BuildContext context){
+                                  return Expanded(
+                                    child: AlertDialog(
+                                      title: Text('Block Video',style: TextStyle(color: Colors.red),),
+                                      content: Text('Block Video Please Enter Block.'),
+                                      actions: [
+                                        InkWell(onTap:(){
+                                          dialog();
+                                        },
+                                          child: Padding(
+                                            padding: EdgeInsets.all(8.0),
+                                            child: Container(
+                                              child: Text("Block",style: TextStyle(fontSize: 20,fontWeight: FontWeight.bold,),),
+                                            ),
+                                          ),
+                                        ),
+                                      ],
+                                    ),
+                                  );
+                                },
+                              );
+                            },child: Text("Block ",))),
+                          ]
+                      ),
+                    ),
+                  ],
+                ),
                 Padding(
                   padding: EdgeInsets.only(bottom: 1.h,left: 3.w),
                   child: Row(
@@ -83,6 +123,72 @@ class _Best_VideoplayState extends State<Best_Videoplay_Screen> {
           },
          ),
       ),
+    );
+  }
+
+  void reportsheetdilaog(){
+    showModalBottomSheet(
+        backgroundColor: Colors.transparent,
+        context:context,
+        builder:(context){
+          return Container(
+            height: 150.h,
+            width: double.infinity,
+            decoration: BoxDecoration(borderRadius:BorderRadius.only(topLeft: Radius.circular(20),topRight: Radius.circular(20)), color: Colors.black,),
+            child: Padding(
+              padding:  EdgeInsets.symmetric(horizontal: 3.w),
+              child: SingleChildScrollView(
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Align(
+                      alignment: Alignment.center,
+                      child: Padding(
+                        padding:  EdgeInsets.symmetric(vertical:1.5.h),
+                        child: Container(height:0.5.h,width: 18.w,decoration: BoxDecoration(borderRadius: BorderRadius.circular(15),color: Colors.grey,),),
+                      ),
+                    ),
+                    Align(alignment: Alignment.center,child: Text("Report",style: TextStyle(color: Colors.white,fontWeight: FontWeight.w500,fontSize: 18.sp),)),
+                    SizedBox(height: 1.h,),
+                    Text("Why are you reporting this post?",style: TextStyle(color: Colors.white,fontSize:15.sp,fontWeight: FontWeight.w500 ),),
+                    SizedBox(height: 1.h,),
+                    Text("Your report is anonymous, except if you're reporting an intellectual property infringement. If someone is in immediate danger, call the local emergency services - don't wait.",style: TextStyle(color: Colors.white60),),
+                    SizedBox(height: 1.h,),
+                    InkWell(onTap: (){
+
+                    },child: Text("I just don't like it",style: TextStyle(color: Colors.white,fontSize:15.sp,fontWeight: FontWeight.w500 ),)),
+                    SizedBox(height: 1.h,),
+                    InkWell(onTap: (){
+                      dialog();
+                    },child: Text("it's spam",style: TextStyle(color: Colors.white,fontSize:15.sp,fontWeight: FontWeight.w500 ),)),
+                    SizedBox(height: 1.h,),
+                    InkWell(onTap: (){
+                      dialog();
+                    },child: Text("Nudity or sexual activity",style: TextStyle(color: Colors.white,fontSize:15.sp,fontWeight: FontWeight.w500 ),)),
+                    SizedBox(height: 1.h,),
+                    InkWell(onTap: (){dialog();},child: Text("Hate speech or symbols",style: TextStyle(color: Colors.white,fontSize:15.sp,fontWeight: FontWeight.w500 ),)),
+                    SizedBox(height: 1.h,),
+                    InkWell(onTap: (){dialog();},child: Text("Violence or dangerous organisations",style: TextStyle(color: Colors.white,fontSize:15.sp,fontWeight: FontWeight.w500 ),)),
+                    SizedBox(height: 1.h,),
+                    InkWell(onTap: (){dialog();},child: Text("False information",style: TextStyle(color: Colors.white,fontSize:15.sp,fontWeight: FontWeight.w500 ),)),
+                    SizedBox(height: 1.h,),
+                    InkWell(onTap: (){dialog();},child: Text("Bullying or harassment",style: TextStyle(color: Colors.white,fontSize:15.sp,fontWeight: FontWeight.w500 ),)),
+                    SizedBox(height: 1.h,),
+                    InkWell(onTap: (){dialog();},child: Text("Scam or fraud",style: TextStyle(color: Colors.white,fontSize:15.sp,fontWeight: FontWeight.w500 ),)),
+                    SizedBox(height: 1.h,),
+                    InkWell(onTap: (){dialog();},child: Text("Intellectual property violation",style: TextStyle(color: Colors.white,fontSize:15.sp,fontWeight: FontWeight.w500 ),)),
+                    SizedBox(height: 1.h,),
+                    InkWell(onTap: (){dialog();},child: Text("Suicide or self-injury",style: TextStyle(color: Colors.white,fontSize:15.sp,fontWeight: FontWeight.w500 ),)),
+                    SizedBox(height: 1.h,),
+                    InkWell(onTap: (){dialog();},child: Text("Sale of illegal or regulated goods",style: TextStyle(color: Colors.white,fontSize:15.sp,fontWeight: FontWeight.w500 ),)),
+                    SizedBox(height: 1.h,),
+                    InkWell(onTap: (){dialog();},child: Text("Eating disorders",style: TextStyle(color: Colors.white,fontSize:15.sp,fontWeight: FontWeight.w500 ),)),
+                  ],
+                ),
+              ),
+            ),
+          );
+        }
     );
   }
   Future<bool> dialog() async {
