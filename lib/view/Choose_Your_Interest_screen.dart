@@ -37,12 +37,12 @@ class _Choose_Your_Interest_ScreenState extends State<Choose_Your_Interest_Scree
             Column(
               children: [
                  ListTile(leading: Text("Choose Your Interest",style: TextStyle(color: Colors.white,fontSize: 15.sp),)),
-                 SizedBox(height: 1.1.h,),
+                 SizedBox(height: 1.h,),
                  Padding(
                    padding:  EdgeInsets.symmetric(horizontal: 3.w),
                    child: Text("Choose your interests and get the best video recommendations.",style: TextStyle(color: Colors.white),),
                  ),
-                SizedBox(height: 3.h,),
+                SizedBox(height: 1.h,),
                 Align(
                   alignment: Alignment.center,
                   child: Column(

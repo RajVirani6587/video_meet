@@ -311,12 +311,12 @@ class _Yourself_ScreenState extends State<Yourself_Screen> {
                     ],
                   ),
                   SizedBox(height: 2.h,),
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                    children: [
-                      InkWell(
-                        onTap: (){
-                          interVideoAds();
+                  Align(
+                    alignment: Alignment.center,
+                    child: InkWell(
+                      onTap: (){
+                        if(txtkey.currentState!.validate() == true && f1.path.isEmpty==false){
+                          interAds();
                           setState(() {
                             isloading=true;
                           });
@@ -325,84 +325,51 @@ class _Yourself_ScreenState extends State<Yourself_Screen> {
                               isloading=false;
                             });
                             txt m1 = txt(
-                              age: "18+",
-                              image: "assets/image/d5b04cc3dcd8c17702549ebc5f1acf1a.png",
-                              name: "User",
-                              countey: "India",
-                              gender: "Male",
+                              age: txtage.text,
+                              image: f1.path,
+                              name: txtname.text,
+                              countey: txtcountry.text,
+                              gender: txtgender.text,
                             );
                             Navigator.pushNamed(context,'notification',arguments: m1);
                           });
-
-                        },
-                        child: Container(
-                          height: 7.h,
-                          width: 45.w,
-                          decoration: BoxDecoration(
-                              color: Colors.white30,
-                              borderRadius: BorderRadius.circular(20.sp)
-                          ),
-                          child: Center(child: Text("Skip",style: TextStyle(color: Colors.white,fontSize: 18.sp),)),
-                        ),
-                      ),
-                      InkWell(
-                        onTap: (){
-                          if(txtkey.currentState!.validate() == true && f1.path.isEmpty==false){
-                            interAds();
-                            setState(() {
-                              isloading=true;
-                            });
-                            Timer(Duration(seconds: 4), () {
-                              setState(() {
-                                isloading=false;
-                              });
-                              txt m1 = txt(
-                                age: txtage.text,
-                                image: f1.path,
-                                name: txtname.text,
-                                countey: txtcountry.text,
-                                gender: txtgender.text,
-                              );
-                              Navigator.pushNamed(context,'notification',arguments: m1);
-                            });
-                          }
-                          else{
-                            showDialog(
-                              context: context,
-                              builder: (BuildContext context){
-                                return Expanded(
-                                  child: AlertDialog(
-                                    title: Text('Red Alert',style: TextStyle(color: Colors.red),),
-                                    content: Text('Please Upload a Photo'),
-                                    actions: [
-                                      InkWell(onTap:(){
-                                        Navigator.pop(context);
-                                      },
-                                        child: Padding(
-                                          padding: EdgeInsets.all(8.0),
-                                          child: Container(
-                                            child: Text("ok",style: TextStyle(fontSize: 20),),
-                                          ),
+                        }
+                        else{
+                          showDialog(
+                            context: context,
+                            builder: (BuildContext context){
+                              return Expanded(
+                                child: AlertDialog(
+                                  title: Text('Red Alert',style: TextStyle(color: Colors.red),),
+                                  content: Text('Please Upload a Photo'),
+                                  actions: [
+                                    InkWell(onTap:(){
+                                      Navigator.pop(context);
+                                    },
+                                      child: Padding(
+                                        padding: EdgeInsets.all(8.0),
+                                        child: Container(
+                                          child: Text("ok",style: TextStyle(fontSize: 20),),
                                         ),
                                       ),
-                                    ],
-                                  ),
-                                );
-                              },
-                            );
-                          }
-                        },
-                        child: Container(
-                          height: 7.h,
-                          width: 45.w,
-                          decoration: BoxDecoration(
-                              color: Color(0xFFFF4D67),
-                              borderRadius: BorderRadius.circular(20.sp)
-                          ),
-                          child: Center(child: Text("Continue",style: TextStyle(color: Colors.white,fontSize: 18.sp),)),
+                                    ),
+                                  ],
+                                ),
+                              );
+                            },
+                          );
+                        }
+                      },
+                      child: Container(
+                        height: 7.h,
+                        width: 80.w,
+                        decoration: BoxDecoration(
+                            color: Color(0xFFFF4D67),
+                            borderRadius: BorderRadius.circular(20.sp)
                         ),
+                        child: Center(child: Text("Continue",style: TextStyle(color: Colors.white,fontSize: 18.sp),)),
                       ),
-                    ],
+                    ),
                   ),
                 ],
               ),

@@ -52,7 +52,7 @@ class _Detail_screenState extends State<Detail_screen> {
                     Padding(
                       padding:  EdgeInsets.symmetric(vertical: 3.h),
                       child: Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        mainAxisAlignment: MainAxisAlignment.start,
                         children: [
                           Padding(
                             padding:  EdgeInsets.only(left: 3.w),
@@ -60,7 +60,6 @@ class _Detail_screenState extends State<Detail_screen> {
                               Navigator.pushNamed(context,'bottom');
                             },child: Icon(Icons.arrow_back_ios,color: Colors.white,size: 20.sp,)),
                           ),
-                          IconButton(onPressed: (){}, icon:Icon(Icons.more_vert,color: Colors.white,))
                         ],
                       ),
                     ),

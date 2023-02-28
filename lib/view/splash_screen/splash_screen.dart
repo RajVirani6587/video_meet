@@ -101,8 +101,8 @@ class _Splash_ScreenState extends State<Splash_Screen> {
     }
     else
     {
-      Timer(Duration(seconds: 5),
-              ()=>Navigator.pushReplacementNamed(context,'terms')
+      Timer(Duration(seconds: 7),
+              ()=>Navigator.pushReplacementNamed(context,'terms'),
       );
     }
   }

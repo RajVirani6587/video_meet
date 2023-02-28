@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:google_mobile_ads/google_mobile_ads.dart';
 import 'package:permission_handler/permission_handler.dart';
 import 'package:sizer/sizer.dart';
+import 'package:video_meet/const/conts.dart';
 import 'package:video_meet/model/model_class.dart';
 
 class Notification_screen extends StatefulWidget {
@@ -11,6 +13,14 @@ class Notification_screen extends StatefulWidget {
 }
 
 class _Notification_screenState extends State<Notification_screen> {
+  @override
+  void initState() {
+    super.initState();
+    nat();
+  }
+  NativeAd? nativead;
+  bool isloading=false;
+  bool isAdLoaded = false;
   @override
   Widget build(BuildContext context) {
     txt m1 = ModalRoute.of(context)!.settings.arguments as txt;
@@ -55,9 +65,18 @@ class _Notification_screenState extends State<Notification_screen> {
                 subtitle: Text("To start Image pike"),
               ),
               SizedBox(height: 2.h,),
+              isAdLoaded ?
               Container(
-                color: Colors.black,
-                height: 15.h,
+                height:18.h,
+                width: 100.w,
+                alignment: Alignment.center,
+                child: AdWidget(ad: nativead!),
+              ) :
+              Container(
+                  height:18.h,
+                  width: 100.w,
+                  alignment: Alignment.center,
+                  child: CircularProgressIndicator()
               ),
             ],
           ),
@@ -180,6 +199,30 @@ class _Notification_screenState extends State<Notification_screen> {
         );
       },
     );
+  }
+
+  void nat(){
+    try
+    {
+      nativead = NativeAd(
+        adUnitId: '$na',
+        factoryId: 'listTile',
+        request: const AdRequest(),
+        listener: NativeAdListener(
+            onAdLoaded: (_) {
+              setState(() {
+                isAdLoaded = true;
+              });
+            },
+            onAdFailedToLoad: (ad, error) {
+              nat();
+
+            }),
+      );
+      nativead!.load();
+    }
+    on Exception
+    {}
   }
 
 }
